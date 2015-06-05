@@ -35,7 +35,7 @@
 fprintf('Defining paths to your executables\n');
 
 if isunix
-    MODELS='/home/chenming/Projects/Southern/mflab-read-only/bin/';  % location of my executables
+    MODELS='/home/chenming/Dropbox/Matlab/mflab/bin/';  % location of my executables
 %    if verLessThan('matlab', '8.0.1')
 %        MF2000 =[MODELS,'mf2k-i386.mac'    ];  % location of MODFLOW executable
 %        MF2005 =[MODELS,'mf2005-i386.mac'  ];  % location of MODFLOW 2005 executable
@@ -50,7 +50,7 @@ if isunix
     MFSWI  =[MODELS,'mf2kswi.mac' ]; % mf2005 which knows SWI
     MODPATH=[MODELS,'mp6.mac' ]; % modpath
 elseif ispc
-    MODELS='E:\Projects\Southern\mflab-read-only\bin\'; % location of my executables
+    MODELS='E:\Dropbox\matlab\mflab\bin\'; % location of my executables
     MF2000 =[MODELS,'mf2k.exe'    ];  % location of MODFLOW executable
     MF2005 =[MODELS 'mf2005.exe'  ]; % location of MF2005 executable
     MF2007 =[MODELS 'mf2005cfp.exe']; % location of MF2005 executable (CFP)
