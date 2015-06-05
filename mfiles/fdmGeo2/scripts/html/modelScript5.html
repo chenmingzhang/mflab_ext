@@ -1,0 +1,166 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>modelScript5</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-04-19"><meta name="DC.source" content="modelScript5.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">modelScript 5 Simple calibration</a></li><li><a href="#2">Fixed data</a></li><li><a href="#3">Initial trial parameters</a></li><li><a href="#4">New data for this example</a></li><li><a href="#5">Load data</a></li><li><a href="#6">Initial parameter mutiplyers, first for T, second for S</a></li><li><a href="#7">Final parameter multiplyers after calibration</a></li><li><a href="#8">Final parameters:</a></li><li><a href="#9">Suitable time vector to simulate model</a></li><li><a href="#10">Model in shape of anonymous function forTheis drawdown</a></li><li><a href="#11">Visualize output</a></li><li><a href="#12">Default axis parameters</a></li><li><a href="#13">Figure setup</a></li></ul></div><h2>modelScript 5 Simple calibration<a name="1"></a></h2><pre>Demo of a simple calibration using lsqnonlin in Matlab</pre><p>We simulate an artificial pumping test to be analyzes using the Theis drawdown formula. Drawdowns are generated using some unknown values transmissivity T and storativity S in the eMeasNew function and adding some random measurment errors. Then the calibration starts with iniital values T0 and S0. The calibration optimizes the multiplyers p. When done the data are plotted with markers and the theis formulat is plotted using the original values for the transmissivity (green line) and the final ones (thick black).</p><p>TO 140419</p><pre class="codeinput"><span class="keyword">global</span> eMeas Q T0 S0 r
+</pre><h2>Fixed data<a name="2"></a></h2><pre class="codeinput">Q  = 1200;  <span class="comment">% [m3/d]</span>
+r = 30;     <span class="comment">% [ m  ]</span>
+</pre><h2>Initial trial parameters<a name="3"></a></h2><pre class="codeinput">T0 = 350;   <span class="comment">% [m2/d]</span>
+S0 = 0.001; <span class="comment">% [ -  ]</span>
+</pre><h2>New data for this example<a name="4"></a></h2><pre class="codeinput">eMeasNew(Q,r,T0,S0);
+</pre><h2>Load data<a name="5"></a></h2><pre class="codeinput">load <span class="string">eMeas</span>; <span class="comment">% eMeas(:,1) is time and eMeas(:,2) are drawdowns</span>
+</pre><h2>Initial parameter mutiplyers, first for T, second for S<a name="6"></a></h2><pre class="codeinput">p = ones(2,1);
+</pre><h2>Final parameter multiplyers after calibration<a name="7"></a></h2><pre class="codeinput">p = lsqnonlin(@FUN,p);
+</pre><pre class="codeoutput">.....................
+Local minimum found.
+
+Optimization completed because the size of the gradient is less than
+the default value of the function tolerance.
+
+
+
+</pre><h2>Final parameters:<a name="8"></a></h2><pre class="codeinput">T = exp(p(1))*T0;
+S = exp(p(2))*S0;
+</pre><h2>Suitable time vector to simulate model<a name="9"></a></h2><pre class="codeinput">t =logspace(log10(eMeas(1)),log10(eMeas(end)),30);
+</pre><h2>Model in shape of anonymous function forTheis drawdown<a name="10"></a></h2><pre class="codeinput">Theis = @(t,T,S) Q/(4*pi*T) * expint(r^2*S./(4*T*t));
+</pre><h2>Visualize output<a name="11"></a></h2><h2>Default axis parameters<a name="12"></a></h2><pre class="codeinput">defaults={<span class="string">'xScale'</span>,<span class="string">'log'</span>,<span class="string">'yScale'</span>,<span class="string">'lin'</span>,<span class="string">'xGrid'</span>,<span class="string">'on'</span>,<span class="string">'yGrid'</span>,<span class="string">'on'</span>,<span class="string">'xLim'</span>,[t(1)/2 2*t(end)]};
+</pre><h2>Figure setup<a name="13"></a></h2><pre class="codeinput">figure;  axes(<span class="string">'nextplot'</span>,<span class="string">'add'</span>,defaults{:});
+xlabel(<span class="string">'time [min]'</span>); ylabel(<span class="string">'drawdown [m]'</span>);
+title(<span class="string">'Theis pumping test calibrated'</span>);
+
+<span class="comment">% Plot</span>
+plot(eMeas(:,1),eMeas(:,2),<span class="string">'ro'</span>);  <span class="comment">% measurements</span>
+
+plot(t, Theis(t,T0,S0),<span class="string">'g'</span>,<span class="string">'lineWidth'</span>,1); <span class="comment">% model with initial paramters</span>
+plot(t, Theis(t,T, S ),<span class="string">'k'</span>,<span class="string">'lineWidth'</span>,2); <span class="comment">% model with final parameters</span>
+
+legend(<span class="string">'measured'</span>,<span class="string">'model begin'</span>,<span class="string">'model optimized'</span>);
+</pre><img vspace="5" hspace="5" src="modelScript5_01.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% modelScript 5 Simple calibration
+%  Demo of a simple calibration using lsqnonlin in Matlab
+%
+% We simulate an artificial pumping test to be analyzes using the Theis
+% drawdown formula. Drawdowns are generated using some unknown values
+% transmissivity T and storativity S in the eMeasNew function and adding
+% some random measurment errors.
+% Then the calibration starts with iniital values T0 and S0. The
+% calibration optimizes the multiplyers p. When done the data are plotted
+% with markers and the theis formulat is plotted using the original values
+% for the transmissivity (green line) and the final ones (thick black).
+%
+% TO 140419
+
+global eMeas Q T0 S0 r
+
+%% Fixed data
+Q  = 1200;  % [m3/d] 
+r = 30;     % [ m  ]
+
+%% Initial trial parameters
+T0 = 350;   % [m2/d]
+S0 = 0.001; % [ -  ]
+
+%% New data for this example
+eMeasNew(Q,r,T0,S0);
+
+%% Load data
+load eMeas; % eMeas(:,1) is time and eMeas(:,2) are drawdowns
+
+%% Initial parameter mutiplyers, first for T, second for S
+p = ones(2,1);  
+
+%% Final parameter multiplyers after calibration
+p = lsqnonlin(@FUN,p);
+
+%% Final parameters:
+T = exp(p(1))*T0;
+S = exp(p(2))*S0;
+
+%% Suitable time vector to simulate model
+t =logspace(log10(eMeas(1)),log10(eMeas(end)),30);
+
+%% Model in shape of anonymous function forTheis drawdown
+Theis = @(t,T,S) Q/(4*pi*T) * expint(r^2*S./(4*T*t));
+
+%% Visualize output
+
+%% Default axis parameters
+defaults={'xScale','log','yScale','lin','xGrid','on','yGrid','on','xLim',[t(1)/2 2*t(end)]};
+
+%% Figure setup
+figure;  axes('nextplot','add',defaults{:});
+xlabel('time [min]'); ylabel('drawdown [m]');
+title('Theis pumping test calibrated');
+
+% Plot
+plot(eMeas(:,1),eMeas(:,2),'ro');  % measurements
+
+plot(t, Theis(t,T0,S0),'g','lineWidth',1); % model with initial paramters
+plot(t, Theis(t,T, S ),'k','lineWidth',2); % model with final parameters
+
+legend('measured','model begin','model optimized');
+
+##### SOURCE END #####
+--></body></html>
