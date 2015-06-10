@@ -38,6 +38,7 @@ if isunix && ~ismac   % linux machine
     MODELS='/home/chenming/Dropbox/Matlab/mflab/trunk/bin/';  % location of my executables
     MF2000 =[MODELS,'mf2k.lin'    ];  % location of MODFLOW executable
     MF2005 =[MODELS,'mf2005.lin'  ];  % location of MODFLOW 2005 executable
+    MF2005NWT = [MODELS 'mf2005nwt.lin']; % location of MODFLOW-NWT excutable
 elseif ismac
     MODELS='/home/chenming/Dropbox/Matlab/mflab/trunk/bin/';  % location of my executables
 %    if verLessThan('matlab', '8.0.1')
