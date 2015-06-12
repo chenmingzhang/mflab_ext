@@ -20,8 +20,9 @@ classdef gridObj
     %   tops and bottoms of the model layers and confining beds.
     %
     %   TO 110810; 120516; 150609
-    %   gr.area_rf  -- the right face area of all cells size(Ny,Nx,Nlay)
-    
+    %   gr.area_rf  -- the right face area of all cells size(Ny,Nx,Nlay),Dy
+    %   gr.area_ff  -- the front face area of all cells size(Ny,Nx,Nlay),Dx
+
     %% Constant properties
     properties (Constant) % also physically stored
     end
@@ -106,6 +107,7 @@ classdef gridObj
         AREA, area             % surface area of model cells and entire model
         AREA3,                 % surface area for all cells in layers (Ny,Nx,Nlay)
 	area_rf,               % area of the cell on the right face
+	area_ff,               % area of the cell on the front face
         %%
         % distance to xm=0 (along the x-axis) for axi-symmetric situations
         r, rm, dr, R, RM, rkm
@@ -612,6 +614,11 @@ end
            area_rf= o.DY.*o.DZlay;
 	end
 
+	function area_ff=get.area_ff(o)
+	% calculate the front face area
+	% size(Ny,Nx,Nlay)
+           area_ff= o.DX.*o.DZlay;
+	end
         function AREA = get.AREA(o)
             if o.AXIAL
                 AREA = ones(size(o.dy)) * (pi.*(o.xGr(2:end).^2-o.xGr(1:end-1).^2));

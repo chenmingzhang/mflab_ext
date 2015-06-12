@@ -1,4 +1,4 @@
-% VISUALIZATION
+ VISUALIZATION
 %
 % Files
 %   animateXS           - script to get an animateObj and to run an animation with movie creation
