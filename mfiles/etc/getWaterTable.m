@@ -38,6 +38,9 @@ function H=getWaterTable(H)
     H(n).mask_UnConf= ~isnan(H(n).values) ;
     H(n).mask_UnConf=cumsum(H(n).mask_UnConf,3)==1 ;
     H(n).HUnConf=  nansum (bsxfun(@times , H(n).mask_UnConf, H(n).values),3);
+    H(n).HUnConf=  nansum (bsxfun(@times , H(n).mask_UnConf, H(n).values),3);
+    % one-liner to make the dry column from 0 to nan
+    H(n).HUnConf= H(n).values(:,:,end)*0.*H(n).HUnConf;
 %         fprintf(1,[num2str(i),num2str(j),'\n']);
 %     fprintf(1,[n,'\n']);
   end  % n loop

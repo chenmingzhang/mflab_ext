@@ -21,7 +21,9 @@ classdef gridObj
     %
     %   TO 110810; 120516; 150609
     %   gr.area_rf  -- the right face area of all cells size(Ny,Nx,Nlay),Dy
+    %                  equivalently, flux along x axis
     %   gr.area_ff  -- the front face area of all cells size(Ny,Nx,Nlay),Dx
+    %                  equivalently, flux along y axis
 
     %% Constant properties
     properties (Constant) % also physically stored
