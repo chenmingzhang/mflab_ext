@@ -68,7 +68,10 @@ if ~isempty(var)
     iz=o.Nlay+1; h(5) = surf(ax,squeeze(o.XGR(:,:,iz)),squeeze(o.YGR(:,:,iz)),squeeze(o.ZGR(:,:,iz)),squeeze(var(:,:,max(1,iz-1))));
     iz=1;      h(6) = surf(ax,squeeze(o.XGR(:,:,iz)),squeeze(o.YGR(:,:,iz)),squeeze(o.ZGR(:,:,iz)),squeeze(var(:,:,iz)));
 else
+    % plot six faces
+    %y=ymin
     ix=1;      h(1) = surf(ax,squeeze(o.XGR(:,ix,:)),squeeze(o.YGR(:,ix,:)),squeeze(o.ZGR(:,ix,:)));
+    %y=ymax
     ix=o.Nx+1; h(2) = surf(ax,squeeze(o.XGR(:,ix,:)),squeeze(o.YGR(:,ix,:)),squeeze(o.ZGR(:,ix,:)));
     iy=o.Ny+1; h(3) = surf(ax,squeeze(o.XGR(iy,:,:)),squeeze(o.YGR(iy,:,:)),squeeze(o.ZGR(iy,:,:)));
     iy=1;      h(4) = surf(ax,squeeze(o.XGR(iy,:,:)),squeeze(o.YGR(iy,:,:)),squeeze(o.ZGR(iy,:,:)));

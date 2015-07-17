@@ -8,5 +8,7 @@ function o=findEndStrPeriod(B)
     o=zeros(1,tmp(end));
     for i=1: length(o)
        sp=find([B.period]==i);
-       o(i)=sp(end);
+       if ~isempty(sp)
+           o(i)=sp(end);
+       end
     end
