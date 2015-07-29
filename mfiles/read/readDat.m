@@ -136,6 +136,7 @@ for i=1:nRec
         H(i).iLay,...
         H(i).NROW,...
         H(i).NCOL...
+	H(i).tottime...
         ]=contrRec(fp,bytes);
     
         %% Do we need this record, if so, set output record number
@@ -247,7 +248,11 @@ for i=1:length(ISelect)  % indices of required records in infile
     HOut(iROut).NCOL,...
     values...        % entire layer array
     ]=contrRec(fp,bytes);
+% try to calculate the real total time based time elaps of each stress
+% period
+%    if
 
+%    HOut(iRout).tottime=HOut(iRout-1).tottime
     %fprintf('%4d %4d %4d %4d\n',iRecIn,iROut,iLay,iL)
         
     newPeriod = H(iRecIn).period~= oldPeriod;
