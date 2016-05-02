@@ -29,7 +29,7 @@ function h = plotTsrPoints(tsrFName,lSpec)
         if nargin<2
             lSpec = [mf_color(iGrp,'brgkmc'),mf_marker(iGrp,'o*^sp+x')];
         end
-        h(iGrp) = plot3(tsr.P(I,ix),tsr.P(I,iy),tsr.P(I,iz),lSpec);
+        h(iGrp) = plot3(tsr.P(I,ix),tsr.P(I,iy),tsr.P(I,iz),lSpec,'markersize',20);
     end
     h(h==0)=[];
 end

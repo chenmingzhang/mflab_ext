@@ -8,7 +8,7 @@ function o=findRealTimeAxis(H)
    % if o(1)=15, then B(15) is the end of the first stress period
     tmp=[H.period];
     time_sp=[H.pertim];
-    last_sp=H(end).period
+    last_sp=H(end).period;
     o=zeros(1,tmp(end));
     for i=1:last_sp
        sp=find(tmp==i);

@@ -830,7 +830,11 @@ classdef mpath_particleGroupObj
                     if ~isempty(o(iGrp).tsrPoints)
                         h(iGrp) = plot3(o(iGrp).tsrPoints(m1(it):m2(it),ix),...
                                         o(iGrp).tsrPoints(m1(it):m2(it),iy),...
-                                        o(iGrp).tsrPoints(m1(it):m2(it),iz),[mrk clr]);
+                                        o(iGrp).tsrPoints(m1(it):m2(it),iz),[mrk clr]...
+					,'markersize',20);
+					% chenming modified this for the purpose of enlarging
+					% the dots. the size of the dots should be automatically
+					% transfered from the arguments of the function.
                     end
                 end
             end
@@ -864,7 +868,10 @@ classdef mpath_particleGroupObj
                         hdl(iGrp).h(iL) = plot3(o(iGrp).pathPoints(m1(iL):m2(iL),ix),...
                                               o(iGrp).pathPoints(m1(iL):m2(iL),iy),...
                                               o(iGrp).pathPoints(m1(iL):m2(iL),iz),...
-                                              lSpec);
+                                              lSpec,'linewidth',2);
+                				% chenming modified this for the purpose of enlarging
+                				% the dots. the size of the dots should be automatically
+                				% transfered from the arguments of the function.
                     end
                     fprintf(' done.\n');
                 end

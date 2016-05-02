@@ -2190,6 +2190,8 @@ end
 
 
 %% ===== THE nwt-file (NWT package (Newton Solver Package)
+% a bug for using mflab in 2015
+nwt=struct;
 nwt.SCEN=namSCEN('NWT',nam.PCKG,nam.SCEN);
 
 if nwt.SCEN

@@ -67,5 +67,7 @@ sac.ttl=['K' num2str(sac.K*3600*24) 'm_D__Q' num2str(sac.Q*3600) ...
       'm3_h__H' num2str(sac.H) 'm__S' num2str(sac.S) ]  ;
 for i  = 1: length(t)
     sac.dd(i,:) = Q/ (4*pi*T ) * expint( r.^2 * S /  (4*T*t(i) )  );
+    % a wrong solution by Ling see 150731 in book ejicamp
+    %sac.dd(i,:) = Q/ (4*pi*T ) * ei( r.^2 * S /  (4*T*t(i) )  );
 end
 
