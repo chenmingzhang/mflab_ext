@@ -840,6 +840,7 @@ classdef mpath_particleGroupObj
             end
             
         end
+        
         function hdl = plotPath(o,lSpec)
             % hdl = mpath_particleGroupObj.plotPthPoints([lSpec])
             % where lSpec is a lineSpec as valid for plot(x,y,lSpec)
@@ -849,7 +850,7 @@ classdef mpath_particleGroupObj
             %
             % TO 130219
             
-            fprintf('\nPlotting pathlines\n');
+%            fprintf('\nPlotting pathlines\n');
             ix = strmatchi('xG',o(1).pathColHdr);
             iy = strmatchi('yG',o(1).pathColHdr);
             iz = strmatchi('zG',o(1).pathColHdr);

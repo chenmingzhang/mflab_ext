@@ -44,7 +44,7 @@ if isunix && ~ismac   % linux machine
     MFSWI  =[MODELS,'mf2kswi.lin' ]; % mf2005 which knows SWI
     MODPATH=[MODELS,'mp6.lin' ]; % modpath
 elseif ismac
-    MODELS='D:\Dropbox\Matlab\mflab\trunk\bin\';  % location of my executables
+    MODELS='e:\Dropbox\Matlab\mflab\trunk\bin\';  % location of my executables
 %    if verLessThan('matlab', '8.0.1')
 %        MF2000 =[MODELS,'mf2k-i386.mac'    ];  % location of MODFLOW executable
 %        MF2005 =[MODELS,'mf2005-i386.mac'  ];  % location of MODFLOW 2005 executable
